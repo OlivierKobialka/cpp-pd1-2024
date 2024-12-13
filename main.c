@@ -102,10 +102,13 @@ void handleError(const char *message) {
 
 void inputValidator(BigInt **a, BigInt **b) {
     char input[1024];
-    printf("Enter 2 numbers (use space)\n");
+    printf("Enter 2 numbers (use space): ");
     if (!fgets(input, sizeof(input), stdin)) {
         handleError("err: input");
     }
+
+    char *newline = strchr(input, '\n');
+    if (newline) *newline = '\0';
 
     char *firstNumber = strtok(input, " ");
     char *secondNumber = strtok(NULL, " ");
@@ -121,6 +124,7 @@ void inputValidator(BigInt **a, BigInt **b) {
     *a = createBigInt(firstNumber);
     *b = createBigInt(secondNumber);
 }
+
 
 int main() {
     BigInt *a = NULL, *b = NULL;
